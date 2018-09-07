@@ -2,7 +2,6 @@
 var wins = 0;
 var losses = 0;
 var userLives = 9;
-var userGuesses = [];
 var cpuGuesses = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "w", "x", "y", "z"];
 var winningGuesses = document.getElementById("winning-guesses");
 var losingGuesses = document.getElementById("losing-guesses");
@@ -10,7 +9,7 @@ var guessesLeft = document.getElementById("guesses-left");
 var userGuessId = document.getElementById("guesses-guessed");
 
 
-    // Generate computer guess from the cpuGuesses array
+    // Generate computer guess from the cpuGuesses array, to "start the game"
     function generateCpuGuess() {
         cpuGuess = cpuGuesses[Math.floor(Math.random() * cpuGuesses.length)];
     } 
@@ -31,12 +30,11 @@ var userGuessId = document.getElementById("guesses-guessed");
             wins++;
             console.log("you win!");
             gameReset();
-            alert("GREAT JOB!!! YOU GUESSED THE RIGHT KEY!")
+            alert("GREAT JOB!!! YOU GUESSED THE RIGHT KEY!");
         }
 
         if (userGuess != cpuGuess) {
-            userLives--;
-            userGuesses.push(userGuess);
+            // userLives--
             console.log("Ouch! You lost a life!");
         }
 
@@ -46,15 +44,21 @@ var userGuessId = document.getElementById("guesses-guessed");
             gameReset();
         }
 
-
+        // Update HTML elements with the .textContent method
+        userGuessId.textContent = userGuess;
+        guessesLeft.textContent = userLives--;
+        winningGuesses.textContent = wins
+        losingGuesses.textContent = losses
+        
     };
 
 
-    // Create a function to reset the game when win condition is met
+    // Create a function to reset the game when win condition is met, or you run out of lives
     function gameReset() {
         cpuGuess = cpuGuesses[Math.floor(Math.random() * cpuGuesses.length)];
         console.log("Resetting the game...");
         userLives = 9;
     }
     
+
     
